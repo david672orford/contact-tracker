@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block head_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+	window.location.hash = "tab1";
+
+	document.getElementById("menu").addEventListener("click", function(event) {
+		console.log("Event target", event.target, event.target.tagName);
+		document.getElementsByClassName("active_tab")[0].className = "";
+		event.target.className = "active_tab";
+		});
+	});
+</script>
+{% endblock %}
+{% block content %}
+<header>
+	<h1>Contact Tracker</h1>
+	<ul id="menu">
+		<li><a href="#tab1" class="active_tab">QR Code</a></li>
+		<li><a href="#tab2">Alerts</a></li>
+		<li><a href="#tab3">About</a></li>
+		<li><a href="#tab4">Privacy</a></li>
+	</ul>
+</header>
+
+<div id="tab1" class="tab">
+<h2>QR Code</h2>
+{% if user %}
+<p>Invite others to scan the code below to record your contact while
+remaining anonymous. Be sure to set your phone down so that it can be
+scanned while maintaining social distancing.</p>
+<div class="qr_code">
+	<img src="{{ url_for('qr_code_renderer', qr_code=user.qr_code) }}">
+	<div>{{ user.qr_code[:3] }} {{ user.qr_code[3:6] }} {{ user.qr_code[6:9] }} {{ user.qr_code[9:] }}</div>
+</div>
+{% if other_user %}
+<div class="recorded">Scan recorded!</div>
+{% endif %}
+{% else %}
+<p>Welcome to <b>Contact Tracer</b>. By using this app you can help to slow
+the spread COVID-19. When you press the button below we will assign you a
+unique QR code which will be saved on your phone.</p>
+<p>Invite others to scan your code and they will be directed to this site.
+Both of your anonymous codes and the date of contact will be recorded.
+Anyone who becomes infected can use this app to inform the others while
+everyone remains anonymous. Only the date of contact will be disclosed.</p>
+<form class="welcome" action="/signup" method="POST">
+	<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+	<button type="submit">Get My QR Code</button>
+</form>
+{% endif %}
+</div>
+
+<div id="tab2" class="tab">
+<h2>Alerts Sent</h2>
+<p>You have sent no alerts.</p>
+<h2>Alerts Received</h2>
+<p>You have received no alerts.</p>
+</div>
+
+<div id="tab3" class="tab">
+<h2>About Contact Tracker</h2>
+<p>Use this application to track persons with whom who come in contact.
+You do this by scanning the QR codes which this app displays on one another's
+phones. Only the code number is recorded. You remain completely anonymous.</p>
+<p>If one of your contacts later uses this app to report a COVID-19 infection,
+you will be inform of the date on which you were in contact. You will not learn
+the identity of the infected person since the app does not record this information.
+But you will be able to use the date of contact to, in consultation with
+your doctor, to decide whether you should get tested or self-quarantine.</p>
+</div>
+
+<div id="tab4" class="tab">
+<h2>Privacy Policy</h2>
+<p>This app collects the following information:</p>
+<ul>
+<li>The anonymous user ID number which it assigns you and which
+	is displayed on the <b>QR Code</b> screen.</li>
+<li>The IP address of your phone</li>
+<li>A list of the anonymous ID numbers of the users who have scanned
+	your QR code or whose QR code you have scanned. This information
+	is saved for 30 days and then deleted.
+<li>The date on which each code was scanned.</li>
+<li>Any COVID-19 status you disclose through the app.</li>
+</ul>
+<p>This app does not collect any personal identifying information. In
+particular, it does <b>not</b> request, receive, or store any of the following:</p>
+<ul>
+<li>Your name</li>
+<li>Your address</li>
+<li>Your telephone number</li>
+<li>Your e-mail address</li>
+<li>The IMSI of your phone</li>
+<li>Your GPS coordinates</li>
+</ul>
+</div>
+
+{% endblock %}
