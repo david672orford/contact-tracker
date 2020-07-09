@@ -1,9 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset='utf-8'>
 <title>{{ config['APP_DISPLAY_NAME'] }}</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<link rel="canonical" href="{{ config['CANONICAL_URL'] }}">
+<meta name="description" content="Web app which keeps track of when people were in contact
+and allows them to send one anothor alerts when they have a positive COVID-19 test while
+remaining largly anonymous.">
+<meta name="keywords" content="COVID-19 coronovirus contact exposure QR-code scan">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="shortcut icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="/static/favicon.ico">
+<link rel="apple-touch-icon" sizes="152x152" href="/static/favicon-152x152.png">
+<link rel="manifest" href="/static/manifest.json">
 <link rel="stylesheet" href="/static/base.css" type="text/css">
 {% block head_js %}{% endblock %}
 </head>

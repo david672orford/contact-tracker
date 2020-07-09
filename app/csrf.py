@@ -1,12 +1,13 @@
-from flask import session
+from flask import session, g
 import secrets
 
 from . import app
 
 def csrf_token():
-	token = secrets.token_urlsafe()
-	session['csrf_token'] = token
-	return token
+	if not 'token' in g:
+		g.token = secrets.token_urlsafe()
+		session['csrf_token'] = g.token
+	return g.token
 app.jinja_env.globals['csrf_token'] = csrf_token
 
 def csrf_token_correct(request):

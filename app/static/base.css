@@ -49,6 +49,10 @@ H2 {
 P {
 	margin-bottom: 0.5em;
 	}
+FORM {
+	display: block;
+	margin-bottom: 0.5em;
+	}
 
 #menu {
 	margin-left: 0.5em;
