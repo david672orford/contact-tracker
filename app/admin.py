@@ -2,7 +2,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla.view import ModelView as InsecureModelView
 from flask_admin.form import SecureForm
 from . import app
-from .models import db, Users, Contacts
+from .models import db, Users, Contacts, Alerts
 
 admin = Admin(app, name=app.config['APP_DISPLAY_NAME'])
 
@@ -18,6 +18,10 @@ class UsersView(ModelView):
 class ContactsView(ModelView):
 	pass
 
+class AlertsView(ModelView):
+	pass
+
 admin.add_view(UsersView(Users, db.session))
 admin.add_view(ContactsView(Contacts, db.session))
+admin.add_view(AlertsView(Alerts, db.session))
 

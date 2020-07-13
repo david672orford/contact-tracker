@@ -4,18 +4,19 @@
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
 
-	/* When the hash changes, move the "active_tag" class */
-	window.addEventListener("hashchange", function() {
-		console.log("hashchange:", window.location.hash);
+	/* If no tab is selected, select the first. */
+	if(window.location.hash === "")
+		window.location.hash = "#tab1";
+
+	/* Set and keep the class "active_tab" on the tab which cooresponds to the URL fragment */
+	function set_active_tab() {
 		var active = document.getElementsByClassName("active_tab");
 		if(active.length > 0)
 			active[0].className = "";
 		document.getElementById("_" + window.location.hash.substring(1)).className = "active_tab";
-		});
-
-	/* If no tab is active, make the first active */
-	if(window.location.hash === "")
-		window.location.hash = "tab1";
+		}
+	window.addEventListener("hashchange", set_active_tab);
+	set_active_tab();
 
 	});
 </script>
@@ -24,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
 {% block content %}
 <header>
 	<h1>Contact Tracker</h1>
-	<ul id="menu">
+	<ul id="tabbar">
 		<li><a id="_tab1" href="#tab1">QR Code</a></li>
 		<li><a id="_tab2" href="#tab2">Alerts</a></li>
 		<li><a id="_tab3" href="#tab3">About</a></li>
@@ -34,18 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div id="tab1" class="tab">
 	<h2>QR Code</h2>
-	{% if user %}
-	<p>Invite others to scan the code below to record your contact while
-	remaining anonymous. Be sure to set your phone down so that it can be
-	scanned while maintaining social distancing.</p>
-	<div class="qr_code">
-		<img src="{{ url_for('qr_code_renderer', qr_code=user.qr_code) }}">
-		<div>{{ user.qr_code[:3] }} {{ user.qr_code[3:6] }} {{ user.qr_code[6:9] }} {{ user.qr_code[9:] }}</div>
-	</div>
-	{% if scanned_user %}
-	<div class="recorded">Scan recorded!</div>
-	{% endif %}
-	{% else %}
+	{% if not user %}
 	<p>Welcome to <b>Contact Tracer</b>. By using this app you can help to slow
 	the spread COVID-19. When you press the button below we will assign you a
 	unique QR code which will be saved on your phone.</p>
@@ -53,48 +43,75 @@ document.addEventListener("DOMContentLoaded", function() {
 	Both of your anonymous codes and the date of contact will be recorded.
 	Anyone who becomes infected can use this app to inform the others while
 	everyone remains anonymous. Only the date of contact will be disclosed.</p>
-	<form class="welcome" action="/signup" method="POST">
-		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-		<button type="submit">Get My QR Code</button>
-	</form>
+	<div class="qr_code_container">
+		<div class="qr_code">
+			<form action="/signup" method="POST">
+				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+				<button type="submit">Get My QR Code</button>
+			</form>
+		</div>
+	</div>
+	{% else %}
+	<p>Invite others to scan the code below to record your contact contact
+	with you while remaining anonymous. Find ways to scan one another's
+	QR codes while keeping social distancing, such as by setting one's
+	phone down on a table and stepping back so the other person can
+	scan it. Only one person needs to scan to record a meeting for both.</p>
+	<div class="qr_code_container">
+		<div class="qr_code">
+			<img src="{{ url_for('qr_code_renderer', qr_code=user.qr_code) }}">
+			<div>{{ user.qr_code[:3] }} {{ user.qr_code[3:6] }} {{ user.qr_code[6:9] }} {{ user.qr_code[9:] }}</div>
+		</div>
+	</div>
+	{% if scanned_user %}
+	<div class="recorded">Scan recorded!</div>
+	{% endif %}
 	{% endif %}
 </div>
 
 <div id="tab2" class="tab">
 	<h2>Alerts Sent</h2>
 	{% if user.alerts %}
-	<form action="/alert-canceled" method="POST">
-	<ul>
-	{% for alert in user.alerts %}
-	<li>
-		{{ alert.date }}
-		{% if alert.canceled %}
-			(canceled)
-			<button name="alert" value="{{ alert.id }}-0">Restore</button>
-		{% else %}
-			<button name="alert" value="{{ alert.id }}-1">Cancel</button>
-		{% endif %}
-	</li>
-	{% endfor %}
-	</ul>
+	<form action="/alerts/set-canceled" method="POST">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+		<ul class="alerts">
+			{% for alert in user.alerts %}
+			<li>
+				{{ alert.date }}
+				{% if alert.canceled %}
+					(canceled)
+					<button name="alert" value="{{ alert.id }}-0">Restore this Alert</button>
+				{% else %}
+					<button name="alert" value="{{ alert.id }}-1">Cancel this Alert</button>
+				{% endif %}
+			</li>
+			{% endfor %}
+		</ul>
 	</form>
 	{% else %}
 	<p>You have not sent any alerts.</p>
 	{% endif %}
-	<form action="/alert" method="POST">
+	<form action="/alerts/send" method="POST">
 		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-		<button>Send Alert</button>
+		<p><button>Send an Alert</button></p>
 	</form>
+
 	<h2>Alerts Received</h2>
 	{% if alerts_received %}
-	<ul>
-	{% for alert in alerts_received %}
-	  <li>{{ alert.date }} {% if alert.canceled %}(canceled){% endif %}</li>
-	{% endfor %}
+	<ul class="alerts">
+		{% for alert in alerts_received %}
+		<li>
+			{{ alert.date }}
+			{% if alert.canceled %}(canceled){% endif %}
+		</li>
+		{% endfor %}
 	</ul>
 	{% else %}
 	<p>You have not received any alerts.</p>
 	{% endif %}
+
+	<h2>Contacts Recorded</h2>
+	<p>You have recorded {{ user.contacts|length }} contacts within the last 30 days.</p> 
 </div>
 
 <div id="tab3" class="tab">

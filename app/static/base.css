@@ -1,7 +1,7 @@
 * {
 	box-sizing: border-box;
 	}
-HTML, BODY, HEADER, NAV, H1, H2, H3, H4, H5, H6, P, UL, LI {
+HTML, BODY, HEADER, H1, H2, P, UL, LI {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -15,8 +15,15 @@ BODY {
 	font-family: sans-serif;
 	font-size: 12pt;
 	}
-MAIN {
-	margin: 0.25em;
+H1, H2 {
+	font-weight: bold;
+	}
+H2 {
+	font-size: 130%;
+	margin-bottom: .2rem;
+	}
+P {
+	margin-bottom: .5em;
 	}
 
 /* Navigation bar at top of page */
@@ -39,75 +46,82 @@ BODY > HEADER > H1 {
 	white-space: nowrap;
 	}
 
-H1, H2, H3, H4, H5, H6 {
-	font-weight: bold;
-	}
-H2 {
-	font-size: 130%;
-	margin-bottom: .2rem;
-	}
-P {
-	margin-bottom: 0.5em;
-	}
-FORM {
-	display: block;
-	margin-bottom: 0.5em;
-	}
-
-#menu {
-	margin-left: 0.5em;
+/* Row of "tabs" at the top using for selecting a UI page */
+#tabbar {
+	margin-left: .5em;
 	font-size: 120%;
 	}
-#menu LI {
+#tabbar LI {
 	display: inline-block;
 	}
-#menu A {
+#tabbar A {
 	display: block;
 	text-decoration: none;
 	color: inherit;
 	padding: .5em;
 	border-radius: .1em;
 	}
-#menu A.active_tab {
+#tabbar A.active_tab {
 	background-color: #C00000;		/* COLOR */
 	}
 .tab {
 	display: none;
 	flex-grow: 1;
+	flex-direction: column;
 	overflow-y: auto;
 	padding: .75em;
 	}
 .tab:target {
-	display: block;
+	display: flex;
 	}
 
+/* Formatting of unordered lists within tab pages */
 .tab UL {
 	margin-left: 1.5em;
-	margin-bottom: 0.5em;
+	margin-bottom: .5em;
 	}
 .tab LI {
 	}
-
-.welcome {
-	display: block;
-	text-align: center;
+.tab BUTTON {
+	padding: .5em;
 	}
-.welcome BUTTON {
+
+/* Lists of alerts require more vertical space to accomodate the buttons. */
+.tab UL.alerts LI {
+	margin: .4em 0;
+	}
+
+/* At first the button to request a QR code, later the QR code with its number underneath */
+DIV.qr_code_container {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;	/* center QR code vertically */
+	align-items: center;		/* center QR code horizontally */
+	}
+DIV.qr_code {
+	width: 85%;
+	max-width: calc(85vh - 10em);		/* a bit of a hack */
+	border: thin solid black;
+	}
+DIV.qr_code BUTTON {
+	display: block;
+	margin: 0 auto;
 	padding: .5em;
 	font-size: 130%;
 	}
-
 DIV.qr_code IMG {
 	display: block;
-	margin: 0 auto;
-	width: 50vw;
-	height: 50vw;
+	width: 100%;
 	}
 DIV.qr_code DIV {
 	text-align: center;
+	margin: 0 .5em .5em .5em;
 	}
 
+/* Scan recorded! */
 DIV.recorded {
 	background-color: #FF8080;
+	padding: .2em;
 	}
 

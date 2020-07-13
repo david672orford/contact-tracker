@@ -1,11 +1,14 @@
 #! /usr/bin/env python3
 
-# For Apache Mod_Wsgi
+# Under Apache mod-wsgi we have to add ourself to the Python path.
 if __name__.startswith("_mod_wsgi_"):
 	import os, sys
 	sys.path.insert(0, os.path.dirname(__file__))
 
+import logging
 from app import app
+
+logging.basicConfig(level=logging.DEBUG)
 
 # For Docker or for standalone testing
 if __name__ == "__main__":
