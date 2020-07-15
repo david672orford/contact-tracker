@@ -58,6 +58,6 @@ class Alerts(db.Model):
 	# Only allow one alert per user, per day.
 	__table_args__ = (db.UniqueConstraint('date','user_id'),)
 	def __str__(self):
-		return '<Alerts id=%s date=%s user=%s canceled=%s contacts=%s>' % (self.id, self.date, self.user, self.canceled, self.contacts)
+		return '<Alerts id=%s date=%s user=%s canceled=%s>' % (self.id, self.date, self.user, self.canceled)
 
 db.create_all()

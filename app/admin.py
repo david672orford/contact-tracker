@@ -13,13 +13,13 @@ class ModelView(InsecureModelView):
     page_size = 15
 
 class UsersView(ModelView):
-	pass
+	list_columns = ('id', 'qr_code', 'last')
 
 class ContactsView(ModelView):
-	pass
+	list_columns = ('id', 'date', 'party1', 'party2', 'alert')
 
 class AlertsView(ModelView):
-	pass
+	list_columns = ('id', 'date', 'user', 'canceled')
 
 admin.add_view(UsersView(Users, db.session))
 admin.add_view(ContactsView(Contacts, db.session))

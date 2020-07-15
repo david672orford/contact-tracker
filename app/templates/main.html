@@ -52,23 +52,28 @@ document.addEventListener("DOMContentLoaded", function() {
 		</div>
 	</div>
 	{% else %}
-	<p>Invite others to scan the code below to record your their contact
-	with you while remaining anonymous. Find ways to scan one another's
-	QR codes while keeping social distancing, such as by setting one's
-	phone down on a table and stepping back so the other person can
-	scan it. Only one person needs to scan to record a meeting for both.</p>
+	<p>Scan the QR code below to record your contact with the owner of this phone.
+	The code will take you to the Contact Tracker mobile site. Instructions for
+	scanning QR codes are on the <a href="#tab3">About</a> page.</p>
+	<p>Maintain social distancing when scanning. It may help to set the phone
+	down and step back so the other person can scan it.</p>
+
 	<div class="qr_code_container">
 		<div class="qr_code">
 			<img src="{{ url_for('qr_code_renderer', qr_code=user.qr_code) }}">
 			<div>{{ user.qr_code[:3] }} {{ user.qr_code[3:6] }} {{ user.qr_code[6:9] }} {{ user.qr_code[9:] }}</div>
 		</div>
 	</div>
-	<div class="scan">
+	<div class="bottom_buttons">
 		<a href="/scanner"><button>Open Scanner</button></a>
 	</div>
-	{% if scanned_user %}
-	<div class="recorded">Scan recorded!</div>
+
+	{% if scan_result == "RECORDED" %}
+	<div class="scan_result recorded">Scan recorded!</div>
+	{% elif scan_result == "DUP" %}
+	<div class="scan_result dup">Duplicate scan!</div>
 	{% endif %}
+
 	{% endif %}
 </div>
 
@@ -127,6 +132,19 @@ document.addEventListener("DOMContentLoaded", function() {
 	the identity of the infected person since the app does not record this information.
 	But you will be able to use the date of contact to, in consultation with
 	your doctor, to decide whether you should get tested or self-quarantine.</p>
+
+	<h2>Scanning the QR Codes</h2>
+	<p>To scan a QR code, point your phone's camera at it while an
+	appropriate app is running. Appropriate apps include:</p>
+	<ul>
+	<li>Your phone's camera app. You may have to switch it into a special
+	mode such as Google Lens mode on Android devices.</li>
+	<li>If your phone's built-in app cannot scan QR codes, you can
+	install a third-party QR code scanner app.</li>
+	<li>Contact Tracker has a built-in QR code scanner. Visit
+	<b>{{ config.CANONICAL_URL }}</b> using your phone's web browser.
+	</li>
+	</ul>
 </div>
 
 <div id="tab4" class="tab">

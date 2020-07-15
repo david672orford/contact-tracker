@@ -39,7 +39,7 @@ def main():
 
 	# If the visitor is a signed-up user and he has scanned a QR code
 	# which we have not yet recorded, do so now.
-	scanned_user = None
+	scan_result = 'NONE'
 	if user is not None and 'scanned_code' in session:
 		scanned_user = Users.query.filter_by(qr_code=session['scanned_code']).first()
 		if scanned_user is not None:
@@ -54,8 +54,12 @@ def main():
 				user.last = scanned_user.last = today
 
 				db.session.commit()
+				scan_result = 'RECORDED'
+
 			except IntegrityError:
 				logger.info("Duplicate scan")
+				db.session.rollback()
+				scan_result = 'DUP'
 
 		session.pop('scanned_code')
 
@@ -70,7 +74,7 @@ def main():
 	return render_template(
 		"main.html",
 		user=user,
-		scanned_user=scanned_user,
+		scan_result=scan_result,
 		alerts_received=alerts_received,
 		)
 
@@ -115,6 +119,7 @@ def alerts_send():
 			db.session.commit()
 		except IntegrityError:
 			logger.info("Duplicate alert")	
+			db.session.rollback()
 	else:
 		logger.info("Incorrect CSRF token")
 	return redirect("/#tab2")

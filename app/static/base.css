@@ -96,15 +96,15 @@ DIV.qr_code_container {
 	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;	/* center QR code vertically */
-	align-items: center;		/* center QR code horizontally */
+	justify-content: center;		/* center QR code vertically */
+	align-items: center;			/* center QR code horizontally */
 	}
 DIV.qr_code {
 	width: 85%;
-	max-width: calc(85vh - 10em);		/* a bit of a hack */
+	max-width: calc(85vh - 10em);	/* a bit of a hack */
 	border: thin solid black;
 	}
-DIV.qr_code BUTTON {
+DIV.qr_code BUTTON {				/* get my QR Code */
 	display: block;
 	margin: 0 auto;
 	padding: .5em;
@@ -120,8 +120,39 @@ DIV.qr_code DIV {
 	}
 
 /* Scan recorded! */
-DIV.recorded {
+DIV.scan_result {
+	padding: .3em .2em .2em .2em;
+	margin: .5rem 0;
+	border-radius: .2em;
+	font-size: 150%;
+	border: thin solid grey;
+	}
+DIV.scan_result.recorded {
+	background-color: #80FF80;
+	}
+DIV.scan_result.dup {
 	background-color: #FF8080;
-	padding: .2em;
+	}
+
+/* Buttons at bottom of QR code screen */
+.bottom_buttons {
+	margin: .5rem 0;
+	font-size: 150%;
+	}
+.bottom_buttons BUTTON {
+	font-size: inherit;
+	}
+
+/* Scanner page */
+.scanner {
+	margin: .5em;
+	}
+.scanner VIDEO {
+	width: calc(100% - 1em);
+	border: thin solid black;
+	}
+.scanner BUTTON {
+	font-size: 150%;
+	padding: .5em;
 	}
 
