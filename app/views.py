@@ -74,6 +74,11 @@ def main():
 		alerts_received=alerts_received,
 		)
 
+# The in-app scanner
+@app.route("/scanner")
+def scanner():
+	return render_template("scanner.html")
+
 # The QR codes send the visitor to this URL. Save the code in our session
 # cookie and send the user to the user interface where new users will be
 # given the opportunity to receive a QR code of their own.

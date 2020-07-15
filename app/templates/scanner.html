@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block head_js %}
+<script type="text/javascript" src="/static/html5-qrcode.min.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+	function onScanSuccess(qrMessage) {
+		console.log(`QR matched = ${qrMessage}`);
+	}
+
+	function onScanFailure(error) {
+		console.warn(`QR error = ${error}`);
+	}
+
+	let html5QrcodeScanner = new Html5QrcodeScanner("scanner", { fps: 10, qrbox: 250 }, /* verbose= */ true);
+	html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+});
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="scanner"></div>
+{% endblock %}
