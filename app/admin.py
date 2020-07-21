@@ -19,7 +19,7 @@ class ContactsView(ModelView):
 	list_columns = ('id', 'date', 'party1', 'party2', 'alert')
 
 class AlertsView(ModelView):
-	list_columns = ('id', 'date', 'user', 'canceled')
+	list_columns = ('id', 'date', 'user', 'contacts', 'canceled')
 
 admin.add_view(UsersView(Users, db.session))
 admin.add_view(ContactsView(Contacts, db.session))
