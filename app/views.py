@@ -1,4 +1,4 @@
-from flask import request, render_template, make_response, redirect, session, abort
+from flask import request, render_template, make_response, redirect, session, abort, send_from_directory
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm.exc import NoResultFound
 from datetime import timedelta, date
@@ -146,4 +146,8 @@ def qr_code_renderer(qr_code):
 	response = make_response(text.getvalue())
 	response.headers['Content-Type'] = 'image/svg+xml'
 	return response
+
+@app.route("/service-worker.js")
+def service_worker():
+	return send_from_directory(app.root_path, "service-worker.js", mimetype="text/javascript")
 

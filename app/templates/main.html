@@ -19,6 +19,16 @@ document.addEventListener("DOMContentLoaded", function() {
 	set_active_tab();
 
 	});
+
+if('serviceWorker' in navigator) {
+	window.addEventListener("load", function() {
+		navigator.serviceWorker.register('/service-worker.js').then((reg) => {
+				console.log("page:sw: registered");
+			}).catch((error) => {
+				console.log("page:sw: registration failed:", error);
+			});
+		});
+	}
 </script>
 {% endblock %}
 
