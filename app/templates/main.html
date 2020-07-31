@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	});
 
+/* If this browser supports service workers, register ours. */
 if('serviceWorker' in navigator) {
 	window.addEventListener("load", function() {
 		navigator.serviceWorker.register('/service-worker.js').then((reg) => {
@@ -47,12 +48,10 @@ if('serviceWorker' in navigator) {
 	<h2>QR Code</h2>
 	{% if not user %}
 	<p>Welcome to <b>Contact Tracer</b>. By using this app you can help to slow
-	the spread COVID-19. When you press the button below we will assign you a
-	unique QR code which will be saved on your phone.</p>
-	<p>Invite others to scan your code and they will be directed to this site.
-	Both of your anonymous codes and the date of contact will be recorded.
-	Anyone who becomes infected can use this app to inform the others while
-	everyone remains anonymous. Only the date of contact will be disclosed.</p>
+	the spread of COVID-19. To become a user, press the button below and the app will
+	assign you a unique QR code and save it on your phone. Refer to the
+	<b>About</b> and <b>Privacy</b> tabs for more information about how this
+	app works.</p>
 	<div class="qr_code_container">
 		<div class="qr_code">
 			<form action="/signup" method="POST">
@@ -63,10 +62,10 @@ if('serviceWorker' in navigator) {
 	</div>
 	{% else %}
 	<p>Scan the QR code below to record your contact with the owner of this phone.
-	The code will take you to the Contact Tracker mobile site. Instructions for
-	scanning QR codes are on the <a href="#tab3">About</a> page.</p>
-	<p>Maintain social distancing when scanning. It may help to set the phone
-	down and step back so the other person can scan it.</p>
+	Take care to remain six feet apart when scanning. If necessary, one phone can
+	be placed on a tabletop. If you do not have at QR code scanner, go to
+	<a href="{{request.url_root}}">{{request.host}}</a> to install this app and
+	then you can use its built-in QR code scanner.</p>
 
 	<div class="qr_code_container">
 		<div class="qr_code">
@@ -134,44 +133,38 @@ if('serviceWorker' in navigator) {
 
 <div id="tab3" class="tab">
 	<h2>About Contact Tracker</h2>
-	<p>Use this application to track persons with whom who come in contact.
-	You do this by scanning the QR codes which this app displays on one another's
-	phones. Only the code number is recorded. You remain completely anonymous.</p>
-	<p>If one of your contacts later uses this app to report a COVID-19 infection,
-	you will be inform of the date on which you were in contact. You will not learn
-	the identity of the infected person since the app does not record this information.
-	But you will be able to use the date of contact to, in consultation with
-	your doctor, to decide whether you should get tested or self-quarantine.</p>
+	<p>Use this application to keep track of your contact with other persons
+	during the COVID-19 pandemic. All that is needed to record that you met
+	someone is for one of you to scan the other's QR code. There is no need
+	to give the other person your name or contact information.</p>
+	<p>If it becomes necessary later, you can use this app to report a
+	COVID-19 infection to anyone you met in person recently.
+	The others will be informed that they were in contact with an infected
+	person on a particular date, but they will not necessarily be able to
+	guess that it was you. Still, this will be enough information for them	
+	to talk to a doctor and decide whether they need to get a COVID-19 test
+	or go into quarantine.</p>
 
-	<h2>Scanning the QR Codes</h2>
-	<p>To scan a QR code, point your phone's camera at it while an
-	appropriate app is running. Appropriate apps include:</p>
-	<ul>
-	<li>Your phone's camera app. You may have to switch it into a special
-	mode such as Google Lens mode on Android devices.</li>
-	<li>If your phone's built-in app cannot scan QR codes, you can
-	install a third-party QR code scanner app.</li>
-	<li>Contact Tracker has a built-in QR code scanner. Visit
-	<b>{{ config.CANONICAL_URL }}</b> using your phone's web browser.
-	</li>
-	</ul>
+	<h2>Credits</h2>
+	<p>The contact tracking methods and concepts embodied in this app were
+	devised by Mikhaylo Telychko. This implementation as an HTML5 web app
+	was written by David Chappell.</p>
+	
 </div>
 
 <div id="tab4" class="tab">
 	<h2>Privacy Policy</h2>
-	<p>This app collects the following information:</p>
+	<p>This app assigns a random ID number to each user and displays it on the
+	app screen as a QR code. It does not collect information about the real
+	identities of its users. It records the following information and retains
+	it for 30 days:</p>
 	<ul>
-	<li>The anonymous user ID number which it assigns you and which
-		is displayed on the <b>QR Code</b> screen.</li>
-	<li>The IP address of your phone</li>
-	<li>A list of the anonymous ID numbers of the users who have scanned
-		your QR code or whose QR code you have scanned. This information
-		is saved for 30 days and then deleted.
-	<li>The date on which each code was scanned.</li>
-	<li>Any COVID-19 status you disclose through the app.</li>
+	<li>The ID numbers of all codes you have scanned.</li>
+	<li>The ID numbers of all users who have scanned your code.</li>
+	<li>The date of each scan.</li>
+	<li>COVID-19 infections reported through the app.</li>
 	</ul>
-	<p>This app does not collect any personal identifying information. In
-	particular, it does <b>not</b> request, receive, or store any of the following:</p>
+	<p>This app does not collect any of the following information:</p>
 	<ul>
 	<li>Your name</li>
 	<li>Your address</li>
@@ -180,6 +173,9 @@ if('serviceWorker' in navigator) {
 	<li>The IMSI of your phone</li>
 	<li>Your GPS coordinates</li>
 	</ul>
+	<p>Whether the IP address of your phone is recorded and how long this
+	information is retained depends on the logging settings of the web
+	server on which this app runs. The app itself does not record IP addresses.</p>
 </div>
 
 {% endblock %}
