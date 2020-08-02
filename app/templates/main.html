@@ -63,9 +63,9 @@ if('serviceWorker' in navigator) {
 	{% else %}
 	<p>Scan the QR code below to record your contact with the owner of this phone.
 	Take care to remain six feet apart when scanning. If necessary, one phone can
-	be placed on a tabletop. If you do not have at QR code scanner, go to
+	be placed on a tabletop. If your phone does not have a QR code scanner, go to
 	<a href="{{request.url_root}}">{{request.host}}</a> to install this app and
-	then you can use its built-in QR code scanner.</p>
+	use the built-in scanner.</p>
 
 	<div class="qr_code_container">
 		<div class="qr_code">
@@ -173,9 +173,8 @@ if('serviceWorker' in navigator) {
 	<li>The IMSI of your phone</li>
 	<li>Your GPS coordinates</li>
 	</ul>
-	<p>Whether the IP address of your phone is recorded and how long this
-	information is retained depends on the logging settings of the web
-	server on which this app runs. The app itself does not record IP addresses.</p>
+	<p>This application does not record the IP address of your phone, though
+	it may be recorded in the web server logs.</p>
 </div>
 
 {% endblock %}

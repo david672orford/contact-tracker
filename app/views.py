@@ -140,7 +140,7 @@ def alerts_set_cancel():
 # Render the QR code as an SVG image
 @app.route("/static/qr/<qr_code>")
 def qr_code_renderer(qr_code):
-	image = pyqrcode.create("%s/s/%s" % (app.config['CANONICAL_URL'], qr_code))
+	image = pyqrcode.create("https://%s/s/%s" % (request.host, qr_code))
 	text = io.BytesIO()
 	image.svg(text)
 	response = make_response(text.getvalue())
