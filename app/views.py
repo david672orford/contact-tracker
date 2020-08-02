@@ -43,9 +43,9 @@ def main():
 	if user is not None and 'scanned_code' in session:
 		scanned_user = Users.query.filter_by(qr_code=session['scanned_code']).first()
 		if scanned_user is not None:
-			today = date.today()
-
 			try:
+				today = date.today()
+
 				# Record the meeting for both parties
 				db.session.add(Contacts(date=today, party1=user, party2=scanned_user))
 				db.session.add(Contacts(date=today, party1=scanned_user, party2=user))
@@ -98,7 +98,7 @@ def qr_code_scanned(qr_code):
 @app.route("/signup", methods=["POST"])
 def signup():
 	if csrf_token_correct(request):
-		user = Users()
+		user = Users(last=date.today())
 		db.session.add(user)
 		db.session.commit()
 		session['my_code'] = user.qr_code
