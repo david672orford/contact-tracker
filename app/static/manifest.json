@@ -1,12 +1,12 @@
 {
   "name": "Contract Tracker",
-  "short_name": "Contact Tracker",
+  "short_name": "Con Tracker",
   "description": "COVID-19 Anonymous Contact Tracker",
   "lang": "en",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "theme_color": "#808080",
+  "theme_color": "#4E9A06",
   "background_color": "#000000",
   "icons": [
     {
