@@ -83,3 +83,14 @@ there on 15 July 2020.
   while offline and the contact reports would be uploaded when he went
   on line.
 
+### Deploying the Demo Implementation
+
+The demo implementation is a WSGI app. It can be deployed using the WSGI server
+of your choice. Your Contract Tracker mobile site must use HTTPS in order for
+the app to have access to the device's camera and be able to scan QR codes.
+Configure your WSGI server accordingly or run a reverse proxy in front of it to
+implement HTTPS.
+
+Before starting the app for the first time copy sample-config.py to
+instance/config.py and set the SECRET\_KEY.
+
