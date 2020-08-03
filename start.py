@@ -17,19 +17,25 @@
 # along with Contact Tracker. If not, see <https://www.gnu.org/licenses/>.
 #
 
-# Under Apache mod-wsgi we have to add ourself to the Python path.
+#import logging
+#logging.basicConfig(level=logging.DEBUG)
+
+# If running under Apache mod-wsgi, we have to add the app directory to the
+# Python search path.
 if __name__.startswith("_mod_wsgi_"):
 	import os, sys
 	sys.path.insert(0, os.path.dirname(__file__))
 
-import logging
+# Import the Flask app
 from app import app
 
-logging.basicConfig(level=logging.DEBUG)
-
-# For Docker or for standalone testing
+# If running standalone (not under Apache mod-wsgi), create a web server using
+# Werkzeug and connect it to the Flask app imported above. This applies when
+# Contact Tracker is run in a Docker container with a reverse proxy such as
+# Nginx in front of it providing HTTPS encryption.
 if __name__ == "__main__":
 	from werkzeug.serving import run_simple
 	from werkzeug.middleware.proxy_fix import ProxyFix
 	app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_for=1)
 	run_simple('0.0.0.0', 5000, app, threaded=True)
+
