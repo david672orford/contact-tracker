@@ -1,0 +1,7 @@
+Flask==1.1.2
+Jinja2==2.11.2
+Flask-SQLAlchemy==2.4.3
+SQLAlchemy==1.3.17
+Flask-Admin==1.5.6
+Werkzeug==1.0.1
+#git+https://github.com/david672orford/wsgi_door

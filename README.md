@@ -1,12 +1,12 @@
 # Contact Tracker 
 
-This is a prototype of a web app for keeping track of possible exposure to
-COVID-19 while allowing its users to remain largely anonymous  On its main
-screen is displays a large QR code. This code encodes a URL pointing back to
-the Content Tracker website. It includes a unique random number which
+Contact Tracker is a mobile app for keeping track of possible exposure to
+COVID-19 while allowing its users to remain largely anonymous. On its main
+screen is displays a large QR code. This code contains a URL pointing back to
+the Content Tracker website. The URL contains a unique random number which
 identifies the user.
 
-Users scan one another's codes in order to record the fact that they met on
+Users scan one another's codes in order to record the fact that they met in
 person on a particular day. If one of them later discovers that he has
 COVID-19, he can can use this app to inform everyone with whom he came in
 contact in the days leading up to the diagnose. They will be informed of the
@@ -14,41 +14,51 @@ date on which they came in contact with an infected person but not which person
 it was. They may then decide to seek medical advice, a COVID-19 test, or to
 self quarantine.
 
-## Privacy
+While Contact Tracker does not know the name of the person reporting an
+infection, perfect anonymity is not guaranteed. In some cases the recipients of
+a notice may be able to infer the identity of the infected person was using
+information from outside the app such as their recollections of whom they met
+on a certain day. The app is designed to act as a discrete go-between,
+collecting and passing on only the bare minimum of information they need to
+slow the spread of the disease.
 
-Perfect anonymity is not guaranteed. In some cases the recipients of a notice
-may be able to infer the identity of the infected person was using information
-from outside the app such as their recollections of whom they met on a certain
-day. The app is designed to act as a discrete go-between, giving users only
-the bare minimum of information they need to slow the spread of the disease.
+## Authors
 
-The app itself can never reveal the name of the infected person because it
-does not know it. It knows its users only by random ID numbers which it itself
-assigned.
+The Contact Tracker concept and theory of operation were devised by Mykhaylo
+Telychko. The Demo Implementation described below was written by David Chappell.
+Feel free to contact them by opening an Issue on the project's Github page:
+<https://github.com/david672orford/contact-tracker>.
 
-## Right to this Implementation
+## Demo Implementation
+
+We provide a simple implementation of the Contact Tracker mobile app concept.
+It takes the form of a mobile website using the Python Flask framework. The
+mobile site is written as a Progressive Web App (PWA) which means that it can
+be installed on the phone as an application.
+
+### Copyright and License to the Demo Implementation
 
 Copyright 2020 David Chappell
 
-Content Tracker is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+Content Tracker is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version.
 
-Content Tracker is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+Content Tracker is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with Contact Tracker. If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License along with
+Contact Tracker. If not, see <https://www.gnu.org/licenses/>.
 
-## Third Party Software
+### Third Party Software in the Demo Implementation
 
-The QR code scanner used in this project comes from <https://github.com/nimiq/qr-scanner>.
-It is the version which was posted there on 15 July 2020.
+The QR code scanner used in this project comes from
+<https://github.com/nimiq/qr-scanner>. It is the version which was posted
+there on 15 July 2020.
 
-## Possible Improvements
+### Possible Improvements to the Demo Implementation
 
 * There should be a way to dismiss the "Scan Recorded" message which
   appears underneath the QR code after one scans another user's code
@@ -73,5 +83,14 @@ It is the version which was posted there on 15 July 2020.
   while offline and the contact reports would be uploaded when he went
   on line.
 
+### Deploying the Demo Implementation
 
+The demo implementation is a WSGI app. It can be deployed using the WSGI server
+of your choice. Your Contract Tracker mobile site must use HTTPS in order for
+the app to have access to the device's camera and be able to scan QR codes.
+Configure your WSGI server accordingly or run a reverse proxy in front of it to
+implement HTTPS.
+
+Before starting the app for the first time copy sample-config.py to
+instance/config.py and set the SECRET\_KEY.
 

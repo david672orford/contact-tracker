@@ -27,7 +27,7 @@ app.config.from_mapping(
 	)
 app.config.from_pyfile('config.py')
 
-from . import admin
 from . import views
 from . import cron
+#from . import admin
 
