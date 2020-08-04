@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-   sodipodi:docname="favicon.svg"
+   sodipodi:docname="favicon-large.svg"
    inkscape:export-filename="/home/david/Desktop/favicon-152x152.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
@@ -97,7 +97,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -114,14 +114,14 @@
        x="0"
        y="161.53333" />
     <ellipse
-       style="fill:none;stroke:#ff0000;stroke-width:5.34817457;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.97435895"
+       style="fill:none;stroke:#ff0000;stroke-width:3.96875;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.97435895"
        id="path3738-6"
        cx="67.73333"
        cy="229.26665"
        rx="30.39883"
        ry="30.398829" />
     <circle
-       style="fill:none;stroke:#ff0000;stroke-width:5.33869314;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.93589741"
+       style="fill:none;stroke:#ff0000;stroke-width:3.96875;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.93589741"
        id="path3738-7-5"
        cx="67.73333"
        cy="229.26665"
@@ -143,7 +143,7 @@
        inkscape:transform-center-y="4.016532"
        r="5" />
     <path
-       style="fill:none;stroke:#ff0000;stroke-width:8;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="fill:none;stroke:#ff0000;stroke-width:6.61458333;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M 66.145833,230.85415 129.64583,196.45832 Z"
        id="path4617"
        inkscape:connector-curvature="0"
@@ -153,5 +153,11 @@
        d="M 52.916666,230.85415 Z"
        id="path824"
        inkscape:connector-curvature="0" />
+    <circle
+       style="fill:none;stroke:#ff0000;stroke-width:3.96875;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.97435895"
+       id="path3738-6-3"
+       cx="67.73333"
+       cy="229.26665"
+       r="42.558361" />
   </g>
 </svg>
