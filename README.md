@@ -22,6 +22,12 @@ on a certain day. The app is designed to act as a discrete go-between,
 collecting and passing on only the bare minimum of information they need to
 slow the spread of the disease.
 
+## Online Demo
+
+For demonstration purposes a copy of this code is deployed at:
+
+  https://ct.nuhub.net
+
 ## Authors
 
 The Contact Tracker concept and theory of operation were devised by Mykhaylo
